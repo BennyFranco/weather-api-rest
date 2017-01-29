@@ -1,0 +1,5 @@
+language: java
+script:
+  ./mvnw verify
+  ./mvnw compile
+  ./mvnw test -B
