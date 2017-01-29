@@ -7,12 +7,18 @@ package com.bennyfranco.weather.api.rest.dto;
  * @author Benny Franco
  * @version 0.0.1 29 ene 2017
  */
-public class Sensor {
+public class SensorDataTransferObject {
     private String id;
     private String name;
     private String value;
 
-    public Sensor() {
+    public SensorDataTransferObject() {
+    }
+
+    public SensorDataTransferObject(String id, String name, String value) {
+        this.id = id;
+        this.name = name;
+        this.value = value;
     }
 
     public String getId() {

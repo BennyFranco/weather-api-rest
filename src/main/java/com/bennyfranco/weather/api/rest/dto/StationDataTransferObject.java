@@ -11,12 +11,12 @@ import java.util.List;
  * @version 0.0.1 29 ene 2017
  */
 
-public class Station {
+public class StationDataTransferObject {
     private String id;
     private String name;
     private Date dateTime;
     private String fileName;
-    private List<Sensor> sensors;
+    private List<SensorDataTransferObject> sensorDataTransferObjects;
 
 
     public String getId() {
@@ -51,11 +51,11 @@ public class Station {
         this.fileName = fileName;
     }
 
-    public List<Sensor> getSensors() {
-        return sensors;
+    public List<SensorDataTransferObject> getSensorDataTransferObjects() {
+        return sensorDataTransferObjects;
     }
 
-    public void setSensors(List<Sensor> sensors) {
-        this.sensors = sensors;
+    public void setSensorDataTransferObjects(List<SensorDataTransferObject> sensorDataTransferObjects) {
+        this.sensorDataTransferObjects = sensorDataTransferObjects;
     }
 }

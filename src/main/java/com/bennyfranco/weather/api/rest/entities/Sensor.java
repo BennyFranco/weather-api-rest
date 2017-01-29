@@ -17,6 +17,12 @@ public class Sensor {
     public Sensor() {
     }
 
+    public Sensor(String id, String name, String value) {
+        this.id = id;
+        this.name = name;
+        this.value = value;
+    }
+
     public String getId() {
         return id;
     }
