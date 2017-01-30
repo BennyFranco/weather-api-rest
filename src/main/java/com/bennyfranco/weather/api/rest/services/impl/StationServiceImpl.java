@@ -7,6 +7,7 @@ import com.bennyfranco.weather.api.rest.entities.Station;
 import com.bennyfranco.weather.api.rest.repositories.StationRepository;
 import com.bennyfranco.weather.api.rest.services.StationService;
 import com.bennyfranco.weather.api.rest.services.exceptions.SensorsNotFoundException;
+import com.bennyfranco.weather.api.rest.services.exceptions.StationAlreadyRegisteredException;
 import com.bennyfranco.weather.api.rest.services.exceptions.StationException;
 import com.bennyfranco.weather.api.rest.services.exceptions.StationNotFound;
 import org.bson.types.ObjectId;
@@ -34,6 +35,8 @@ public class StationServiceImpl implements StationService {
     public StationDataTransferObject create(Station station) throws StationException {
         if (station.getSensors() == null || station.getSensors().isEmpty()) {
             throw new SensorsNotFoundException("You don't have any sensor registered for this station");
+        } else if(this.stationRepository.findOne(station.getId())!=null){
+            throw new StationAlreadyRegisteredException("The station is already registered.");
         }
         return entityToDto(this.stationRepository.save(station));
     }
