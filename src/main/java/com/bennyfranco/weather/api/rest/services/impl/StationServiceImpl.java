@@ -35,7 +35,7 @@ public class StationServiceImpl implements StationService {
     public StationDataTransferObject create(Station station) throws StationException {
         if (station.getSensors() == null || station.getSensors().isEmpty()) {
             throw new SensorsNotFoundException("You don't have any sensor registered for this station");
-        } else if(this.stationRepository.findOne(station.getId())!=null){
+        } else if(this.stationRepository.findByName(station.getName())!=null){
             throw new StationAlreadyRegisteredException("The station is already registered.");
         }
         return entityToDto(this.stationRepository.save(station));

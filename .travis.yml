@@ -5,4 +5,3 @@ script:
   - ./mvnw clean install -X
   - ./mvnw verify
   - ./mvnw compile
-  - ./mvnw test -B
