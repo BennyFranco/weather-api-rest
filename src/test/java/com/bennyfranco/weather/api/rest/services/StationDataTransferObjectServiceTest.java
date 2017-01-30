@@ -6,6 +6,7 @@ import com.bennyfranco.weather.api.rest.entities.Station;
 import com.bennyfranco.weather.api.rest.repositories.StationRepository;
 import com.bennyfranco.weather.api.rest.services.exceptions.SensorsNotFoundException;
 import com.bennyfranco.weather.api.rest.services.exceptions.StationException;
+import com.bennyfranco.weather.api.rest.services.exceptions.StationNotFound;
 import com.bennyfranco.weather.api.rest.services.impl.StationServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Testing class of StationDataTransferObject Service.
@@ -62,5 +62,48 @@ public class StationDataTransferObjectServiceTest {
         station.setFileName("./jazmin.txt");
 
         stationService.create(station);
+    }
+
+    @Test
+    public void update_station_success() throws StationException {
+        Station station = new Station();
+        station.setId("01");
+        station.setName("JAZMIN");
+        station.setDateTime(new Date());
+        station.setFileName("./jazmin.txt");
+
+        Sensor barometro = new Sensor("01","BarometroTest","100");
+        List<Sensor> sensorList = new ArrayList<>();
+        sensorList.add(barometro);
+
+        station.setSensors(sensorList);
+
+        when(stationRepository.findOne(station.getId())).thenReturn(station);
+        when(stationRepository.save(station)).thenReturn(station);
+
+        stationService.update(station);
+
+        verify(stationRepository, times(1)).findOne(station.getId());
+    }
+
+    @Test(expected = StationNotFound.class)
+    public void update_station_fail() throws StationException {
+        Station station = new Station();
+        station.setId("01");
+        station.setName("JAZMIN");
+        station.setDateTime(new Date());
+        station.setFileName("./jazmin.txt");
+
+        Sensor barometro = new Sensor("01","BarometroTest","100");
+        List<Sensor> sensorList = new ArrayList<>();
+        sensorList.add(barometro);
+
+        station.setSensors(sensorList);
+
+        when(stationRepository.findOne(station.getId())).thenReturn(null);
+
+        stationService.update(station);
+
+        verify(stationRepository, times(1)).findOne(station.getId());
     }
 }

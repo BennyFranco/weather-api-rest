@@ -8,12 +8,13 @@ import com.bennyfranco.weather.api.rest.repositories.StationRepository;
 import com.bennyfranco.weather.api.rest.services.StationService;
 import com.bennyfranco.weather.api.rest.services.exceptions.SensorsNotFoundException;
 import com.bennyfranco.weather.api.rest.services.exceptions.StationException;
+import com.bennyfranco.weather.api.rest.services.exceptions.StationNotFound;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Service and bussines logic for StationDataTransferObject
+ * Service and business logic for StationDataTransferObject
  *
  * @author Benny Franco
  * @version 0.0.1 29 ene 2017
@@ -32,6 +33,42 @@ public class StationServiceImpl implements StationService {
             throw new SensorsNotFoundException("You don't have any sensor registered for this station");
         }
         return entityToDto(this.stationRepository.save(station));
+    }
+
+    @Override
+    public StationDataTransferObject update(Station station) throws StationException {
+        Station foundStation = this.stationRepository.findOne(station.getId());
+        if(foundStation == null){
+            throw new StationNotFound("The station is unregistered");
+        }
+        return entityToDto(this.stationRepository.save(station));
+    }
+
+    @Override
+    public StationDataTransferObject findByName(String name) throws StationException {
+        Station foundStation = this.stationRepository.findByName(name);
+        if(foundStation == null){
+            throw new StationNotFound("The station is unregistered");
+        }
+        return entityToDto(foundStation);
+    }
+
+    @Override
+    public StationDataTransferObject findById(String id) throws StationException {
+        Station foundStation = this.stationRepository.findOne(id);
+        if(foundStation == null){
+            throw new StationNotFound("The station is unregistered");
+        }
+        return entityToDto(foundStation);
+    }
+
+    @Override
+    public List<StationDataTransferObject> findAll() {
+        List<StationDataTransferObject> newStationList = new ArrayList<>();
+
+        this.stationRepository.findAll().forEach(station -> newStationList.add(entityToDto(station)));
+
+        return newStationList;
     }
 
     private StationDataTransferObject entityToDto(Station entity) {
