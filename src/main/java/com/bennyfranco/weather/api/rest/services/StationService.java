@@ -2,6 +2,8 @@ package com.bennyfranco.weather.api.rest.services;
 
 import com.bennyfranco.weather.api.rest.dto.StationDataTransferObject;
 import com.bennyfranco.weather.api.rest.entities.Station;
+import com.bennyfranco.weather.api.rest.services.exceptions.SensorsNotFoundException;
+import com.bennyfranco.weather.api.rest.services.exceptions.StationAlreadyRegisteredException;
 import com.bennyfranco.weather.api.rest.services.exceptions.StationException;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,7 @@ import java.util.List;
  */
 @Service
 public interface StationService {
-    StationDataTransferObject create(Station station) throws StationException;
+    StationDataTransferObject create(Station station) throws SensorsNotFoundException, StationAlreadyRegisteredException;
 
     StationDataTransferObject update(Station station) throws StationException;
 

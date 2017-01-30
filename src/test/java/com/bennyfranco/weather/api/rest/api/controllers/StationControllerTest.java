@@ -30,6 +30,7 @@ import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -87,7 +88,7 @@ public class StationControllerTest {
         stationDTO.setDateTime(new Date());
         stationDTO.setFileName("./jazmin.txt");
 
-        SensorDataTransferObject barometroDTO= new SensorDataTransferObject("BarometroTest", "100");
+        SensorDataTransferObject barometroDTO = new SensorDataTransferObject("BarometroTest", "100");
         List<SensorDataTransferObject> sensorListDTO = new ArrayList<>();
         sensorListDTO.add(barometroDTO);
 
@@ -110,5 +111,37 @@ public class StationControllerTest {
         verifyNoMoreInteractions(stationService);
     }
 
+    @Test
+    public void update_station_success() throws Exception {
+
+        station.setName("CAMOTE");
+
+        StationDataTransferObject stationDTO = new StationDataTransferObject();
+        stationDTO.setName("CAMOTE");
+        stationDTO.setDateTime(new Date());
+        stationDTO.setFileName("./jazmin.txt");
+
+        SensorDataTransferObject barometroDTO = new SensorDataTransferObject("BarometroTest", "100");
+        List<SensorDataTransferObject> sensorListDTO = new ArrayList<>();
+        sensorListDTO.add(barometroDTO);
+
+        stationDTO.setSensors(sensorListDTO);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonInString = mapper.writeValueAsString(station);
+
+        when(stationService.update(station)).thenReturn(stationDTO);
+
+        mockMvc.perform(put(apiURL)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jsonInString))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.data.id", is(stationDTO.getId())))
+                .andExpect(jsonPath("$.data.name", is(stationDTO.getName())));
+
+        verify(stationService, times(1)).update(station);
+        verifyNoMoreInteractions(stationService);
+    }
 
 }

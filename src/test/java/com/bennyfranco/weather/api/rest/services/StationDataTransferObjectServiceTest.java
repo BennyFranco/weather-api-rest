@@ -139,4 +139,26 @@ public class StationDataTransferObjectServiceTest {
         Assert.assertTrue(station.getId().equals(dtoStationDataTransferObject.getId()));
         verify(stationRepository, times(1)).findOne(station.getId());
     }
+
+    @Test(expected = StationException.class)
+    public void update_station_fail_when_id_null() throws StationException {
+        Station station = new Station();
+        station.setName("JAZMIN");
+        station.setDateTime(new Date());
+        station.setFileName("./jazmin.txt");
+
+        Sensor barometro = new Sensor();
+        barometro.setName("BarometroTest");
+        barometro.setValue("100");
+        List<Sensor> sensorList = new ArrayList<>();
+        sensorList.add(barometro);
+
+        station.setSensors(sensorList);
+
+        when(stationRepository.findOne(station.getId())).thenReturn(station);
+        when(stationRepository.save(station)).thenReturn(station);
+
+       stationService.update(station);
+
+    }
 }

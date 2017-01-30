@@ -22,4 +22,11 @@ public class APIExceptionHandler extends ResponseEntityExceptionHandler {
         WeatherResponse apiResponse = new WeatherResponse(ex.getStatus(), ex.getLocalizedMessage());
         return new ResponseEntity<>(apiResponse, new HttpHeaders(), apiResponse.getStatus());
     }
+
+    @ExceptionHandler({HTTPStationAlreadyRegisteredException.class})
+    public ResponseEntity<Object> handleHTTPStationAlreadyRegisteredException(HTTPStationAlreadyRegisteredException ex) {
+
+        WeatherResponse apiResponse = new WeatherResponse(ex.getStatus(), ex.getLocalizedMessage());
+        return new ResponseEntity<>(apiResponse, new HttpHeaders(), apiResponse.getStatus());
+    }
 }

@@ -32,10 +32,10 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
-    public StationDataTransferObject create(Station station) throws StationException {
+    public StationDataTransferObject create(Station station) throws SensorsNotFoundException, StationAlreadyRegisteredException {
         if (station.getSensors() == null || station.getSensors().isEmpty()) {
-            throw new SensorsNotFoundException("You don't have any sensor registered for this station");
-        } else if(this.stationRepository.findByName(station.getName())!=null){
+            throw new SensorsNotFoundException("You don't have any sensor registered for this station.");
+        } else if (this.stationRepository.findByName(station.getName()) != null) {
             throw new StationAlreadyRegisteredException("The station is already registered.");
         }
         return entityToDto(this.stationRepository.save(station));
@@ -43,9 +43,14 @@ public class StationServiceImpl implements StationService {
 
     @Override
     public StationDataTransferObject update(Station station) throws StationException {
+        if (station.getId() == null) {
+            throw new StationException("Station id can't be null.");
+        }
+
         Station foundStation = this.stationRepository.findOne(station.getId());
-        if(foundStation == null){
-            throw new StationNotFound("The station is unregistered");
+
+        if (foundStation == null) {
+            throw new StationNotFound("The station is unregistered.");
         }
         return entityToDto(this.stationRepository.save(station));
     }
@@ -53,7 +58,7 @@ public class StationServiceImpl implements StationService {
     @Override
     public StationDataTransferObject findByName(String name) throws StationException {
         Station foundStation = this.stationRepository.findByName(name);
-        if(foundStation == null){
+        if (foundStation == null) {
             throw new StationNotFound("The station is unregistered");
         }
         return entityToDto(foundStation);
@@ -62,7 +67,7 @@ public class StationServiceImpl implements StationService {
     @Override
     public StationDataTransferObject findById(ObjectId id) throws StationException {
         Station foundStation = this.stationRepository.findOne(id);
-        if(foundStation == null){
+        if (foundStation == null) {
             throw new StationNotFound("The station is unregistered");
         }
         return entityToDto(foundStation);
