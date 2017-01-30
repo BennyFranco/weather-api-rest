@@ -1,6 +1,10 @@
 package com.bennyfranco.weather.api.rest.entities;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 import java.util.List;
@@ -12,21 +16,26 @@ import java.util.List;
  * @version 0.0.1 29 ene 2017
  */
 
+@Document
 public class Station {
 
     @Id
-    private String id;
+    private ObjectId id;
+    @Indexed
     private String name;
+    @Indexed
     private Date dateTime;
+    @Indexed
     private String fileName;
+
+    @Indexed
     private List<Sensor> sensors;
 
-
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -60,5 +69,33 @@ public class Station {
 
     public void setSensors(List<Sensor> sensors) {
         this.sensors = sensors;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Station station = (Station) o;
+
+        return getId().equals(station.getId()) && getName().equals(station.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getName().hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id:'" + id + '\'' +
+                ", name:'" + name + '\'' +
+                ", dateTime:" + dateTime +
+                ", fileName:'" + fileName + '\'' +
+                ", sensors:" + sensors +
+                '}';
     }
 }

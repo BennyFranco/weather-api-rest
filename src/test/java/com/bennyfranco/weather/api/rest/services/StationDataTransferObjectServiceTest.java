@@ -8,6 +8,7 @@ import com.bennyfranco.weather.api.rest.services.exceptions.SensorsNotFoundExcep
 import com.bennyfranco.weather.api.rest.services.exceptions.StationException;
 import com.bennyfranco.weather.api.rest.services.exceptions.StationNotFound;
 import com.bennyfranco.weather.api.rest.services.impl.StationServiceImpl;
+import org.bson.types.ObjectId;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,12 +36,14 @@ public class StationDataTransferObjectServiceTest {
     @Test
     public void create_station_success() throws StationException {
         Station station = new Station();
-        station.setId("01");
+        station.setId(new ObjectId("507f1f77bcf86cd799439011"));
         station.setName("JAZMIN");
         station.setDateTime(new Date());
         station.setFileName("./jazmin.txt");
 
-        Sensor barometro = new Sensor("01","BarometroTest","100");
+        Sensor barometro = new Sensor();
+        barometro.setName("BarometroTest");
+        barometro.setValue("100");
         List<Sensor> sensorList = new ArrayList<>();
         sensorList.add(barometro);
 
@@ -56,7 +59,7 @@ public class StationDataTransferObjectServiceTest {
     @Test(expected = SensorsNotFoundException.class)
     public void create_station_fail_when_sensors_are_null() throws StationException {
         Station station = new Station();
-        station.setId("01");
+        station.setId(new ObjectId("507f1f77bcf86cd799439011"));
         station.setName("JAZMIN");
         station.setDateTime(new Date());
         station.setFileName("./jazmin.txt");
@@ -67,12 +70,14 @@ public class StationDataTransferObjectServiceTest {
     @Test
     public void update_station_success() throws StationException {
         Station station = new Station();
-        station.setId("01");
+        station.setId(new ObjectId("507f1f77bcf86cd799439011"));
         station.setName("JAZMIN");
         station.setDateTime(new Date());
         station.setFileName("./jazmin.txt");
 
-        Sensor barometro = new Sensor("01","BarometroTest","100");
+        Sensor barometro = new Sensor();
+        barometro.setName("BarometroTest");
+        barometro.setValue("100");
         List<Sensor> sensorList = new ArrayList<>();
         sensorList.add(barometro);
 
@@ -89,12 +94,14 @@ public class StationDataTransferObjectServiceTest {
     @Test(expected = StationNotFound.class)
     public void update_station_fail() throws StationException {
         Station station = new Station();
-        station.setId("01");
+        station.setId(new ObjectId("507f1f77bcf86cd799439011"));
         station.setName("JAZMIN");
         station.setDateTime(new Date());
         station.setFileName("./jazmin.txt");
 
-        Sensor barometro = new Sensor("01","BarometroTest","100");
+        Sensor barometro = new Sensor();
+        barometro.setName("BarometroTest");
+        barometro.setValue("100");
         List<Sensor> sensorList = new ArrayList<>();
         sensorList.add(barometro);
 

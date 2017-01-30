@@ -1,6 +1,8 @@
 package com.bennyfranco.weather.api.rest.dto;
 
 
+import org.bson.types.ObjectId;
+
 /**
  * An entity class to describe the station sensors.
  *
@@ -8,24 +10,23 @@ package com.bennyfranco.weather.api.rest.dto;
  * @version 0.0.1 29 ene 2017
  */
 public class SensorDataTransferObject {
-    private String id;
+    private ObjectId id;
     private String name;
     private String value;
 
     public SensorDataTransferObject() {
     }
 
-    public SensorDataTransferObject(String id, String name, String value) {
-        this.id = id;
+    public SensorDataTransferObject(String name, String value) {
         this.name = name;
         this.value = value;
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

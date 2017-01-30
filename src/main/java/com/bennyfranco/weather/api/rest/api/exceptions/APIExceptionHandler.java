@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * @version 0.0.1 26 ene 2017
  */
 @ControllerAdvice
-public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+public class APIExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({HTTPStationNotFound.class})
     public ResponseEntity<Object> handleHTTPPeopleNotFoundException(HTTPStationNotFound ex) {

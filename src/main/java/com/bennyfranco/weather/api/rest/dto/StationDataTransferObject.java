@@ -1,6 +1,8 @@
 package com.bennyfranco.weather.api.rest.dto;
 
 
+import org.bson.types.ObjectId;
+
 import java.util.Date;
 import java.util.List;
 
@@ -12,18 +14,18 @@ import java.util.List;
  */
 
 public class StationDataTransferObject {
-    private String id;
+    private ObjectId id;
     private String name;
     private Date dateTime;
     private String fileName;
-    private List<SensorDataTransferObject> sensorDataTransferObjects;
+    private List<SensorDataTransferObject> sensors;
 
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -51,11 +53,11 @@ public class StationDataTransferObject {
         this.fileName = fileName;
     }
 
-    public List<SensorDataTransferObject> getSensorDataTransferObjects() {
-        return sensorDataTransferObjects;
+    public List<SensorDataTransferObject> getSensors() {
+        return sensors;
     }
 
-    public void setSensorDataTransferObjects(List<SensorDataTransferObject> sensorDataTransferObjects) {
-        this.sensorDataTransferObjects = sensorDataTransferObjects;
+    public void setSensors(List<SensorDataTransferObject> sensors) {
+        this.sensors = sensors;
     }
 }
