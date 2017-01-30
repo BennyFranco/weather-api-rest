@@ -1,5 +1,8 @@
 language: java
+jdk:
+  - oraclejdk8
 script:
-  ./mvnw verify
-  ./mvnw compile
-  ./mvnw test -B
+  - ./mvn clean install -X
+  - ./mvnw verify
+  - ./mvnw compile
+  - ./mvnw test -B
