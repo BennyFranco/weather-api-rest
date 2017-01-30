@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Class description here
+ * This exceptions occurs when Station isn't found.
  *
  * @author Benny Franco
  * @version 0.0.1 29 ene 2017

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
- * Class description here
+ * This class manage the exceptions of the REST API.
  *
  * @author Benny Franco
  * @version 0.0.1 26 ene 2017
