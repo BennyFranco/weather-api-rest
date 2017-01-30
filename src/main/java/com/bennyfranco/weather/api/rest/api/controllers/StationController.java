@@ -49,4 +49,9 @@ public class StationController {
             throw new HTTPStationNotFound(e.getMessage());
         }
     }
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public WeatherResponse getAllStations()   {
+        return new WeatherResponse<>(HttpStatus.OK, this.stationService.findAll());
+    }
 }
