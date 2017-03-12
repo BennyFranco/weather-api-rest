@@ -1,8 +1,6 @@
 # Weather Rest API
 
 [![Build Status][travis-badge]][travis-badge-url]
-[![Dependency Status][david-badge]][david-badge-url]
-[![devDependency Status][david-dev-badge]][david-dev-badge-url]
 
 This project is part of my Thesis named "Development of a software architecture for an agrometeorological network".
 The idea of this module is provide the rest api service to persist and get information from a NoSql data base, for my
@@ -72,7 +70,3 @@ SOFTWARE.
 
 [travis-badge]: https://travis-ci.org/BennyFranco/weather-api-rest.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/BennyFranco/weather-api-rest
-[david-badge]: https://david-dm.org/BennyFranco/weather-api-rest.svg
-[david-badge-url]: https://david-dm.org/BennyFranco/weather-api-rest
-[david-dev-badge]: https://david-dm.org/BennyFranco/weather-api-rest/dev-status.svg
-[david-dev-badge-url]: https://david-dm.org/BennyFranco/weather-api-rest?type=dev
